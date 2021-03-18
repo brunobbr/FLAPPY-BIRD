@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Pixel';
+    src: url('../fonts/Pixel.ttf');
+}
+body {
+    background-color: midnightblue;
+}
+
+h1 {
+    margin: 2rem;
+    text-align: center;
+    color: gainsboro;
+}
+
+[wm-flappy] {
+    position: relative;
+    border: 5px solid dodgerblue;
+    width: 75rem;
+    height: 50rem;
+    margin: 15px auto;
+    background-color: deepskyblue;
+    overflow: hidden;
+}
+
+.bird {
+    position: absolute;
+    width: 60px;
+    left: calc(50% - 30px);
+    bottom: 50%;
+}
+
+.pairHurdling {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hurdling {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hurdling  .borderHurdling {
+    height: 2rem;
+    width: 8rem;
+    background: linear-gradient(90deg, #639301, #A6E82E);
+    border: 2px solid black;
+}
+
+.hurdling .bodyHurdling {
+    height: 18rem;
+    width: 7rem;
+    background: linear-gradient(90deg, #639301, #A6E82E);
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+}
+
+.progress {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: blanchedalmond;
+    font-family: Pixel;
+    font-size: 3rem;
+}
