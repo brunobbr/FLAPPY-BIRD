@@ -70,9 +70,41 @@ function hurdlings(heightH, Breadth, opening, spaceH, notifyPoint) {
     }
 }
 
+function bird(heightGame) {
+    let flayH = false
+
+    this.element = newElement('img', 'bird')
+    this.element.src = 'imgs/Bird.png'
+
+    this.getY = () => parseInt(this.element.style.bottom.split('px')[0])
+    this.setY = y => this.element.style.bottom = `${y}px`
+
+    window.onkeydown = e => flayH = true
+    window.onkeyup = e => flayH = false
+
+    this.animateH = () => {
+        const newY = this.getY() + (flayH ? 8 : -5)
+        const heightMax = heightGame - this.element.clientHeight
+
+        if (newY <= 0) {
+            this.setY(0)
+        } else if (newY >= heightMax){
+            this.setY(heightMax)
+        } else {
+            this.setY(newY)
+        }
+    }
+    this.setY(heightGame / 2)
+}
+
+
 const hurdlingsH = new hurdlings(700, 1200, 200, 400)
+const birdH = new bird(700)
 const areaGame =  document.querySelector('[wm-flappy]')
-hurdlingsH.pairs.forEach(pair => areaGame.appendChild(pair.element))
+
+areaGame.appendChild(birdH.element)
+hurdlingsH.pairs.forEach( pair => areaGame.appendChild(pair.element))
 setInterval( () => {
     hurdlingsH.animateH( )
+    birdH.animateH()
 }, 20)
