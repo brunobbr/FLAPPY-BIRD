@@ -83,7 +83,7 @@ function bird(heightGame) {
     window.onkeyup = e => flayH = false
 
     this.animateH = () => {
-        const newY = this.getY() + (flayH ? 8 : -5)
+        const newY = this.getY() + (flayH ? 14 : -9)
         const heightMax = heightGame - this.element.clientHeight
 
         if (newY <= 0) {
@@ -98,13 +98,62 @@ function bird(heightGame) {
 }
 
 
-const hurdlingsH = new hurdlings(700, 1200, 200, 400)
-const birdH = new bird(700)
-const areaGame =  document.querySelector('[wm-flappy]')
+//const hurdlingsH = new hurdlings(700, 1200, 200, 400)
+//const birdH = new bird(700)
+//const areaGame =  document.querySelector('[wm-flappy]')
+//
+//areaGame.appendChild(birdH.element)
+//hurdlingsH.pairs.forEach( pair => areaGame.appendChild(pair.element))
+//setInterval( () => {
+//    hurdlingsH.animateH( )
+//    birdH.animateH()
+//}, 20)
 
-areaGame.appendChild(birdH.element)
-hurdlingsH.pairs.forEach( pair => areaGame.appendChild(pair.element))
-setInterval( () => {
-    hurdlingsH.animateH( )
-    birdH.animateH()
-}, 20)
+function progress() {
+    this.element = newElement('span', 'progress')
+    this.updatePoints = points => {
+        this.element.innerHTML = points
+    }
+    this.updatePoints(0)
+}
+
+
+//const hurdlingsH = new hurdlings(700, 1200, 200, 400)
+//const birdH = new bird(700)
+//const areaGame =  document.querySelector('[wm-flappy]')
+//
+//
+//areaGame.appendChild(birdH.element)
+//areaGame.appendChild(new progress().element)
+//
+//hurdlingsH.pairs.forEach( pair => areaGame.appendChild(pair.element))
+//setInterval( () => {
+//    hurdlingsH.animateH( )
+//    birdH.animateH()
+//}, 20)
+
+function flappyBird() {
+    let points = 0
+
+    const areaGame = document.querySelector('[wm-flappy')
+    const heightH = areaGame.clientHeight
+    const widthH = areaGame.clientWidth
+    const progressH = new progress()
+    const hurdlingsH = new hurdlings(heightH, widthH, 200, 400,
+                                                 () => progress.updatePoints(++points))
+    const birdH = new bird(heightH) 
+
+    areaGame.appendChild(progressH.element)
+    areaGame.appendChild(birdH.element) 
+    hurdlingsH.pairs.forEach(pair => areaGame.appendChild(pair.element))
+
+    // loop game
+    this.start = () => {
+        const timerH = setInterval(() =>{
+            hurdlingsH.animateH()
+            birdH.animateH()
+        }, 20)
+    }
+}
+
+new flappyBird().start()
