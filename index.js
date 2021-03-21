@@ -137,7 +137,7 @@ function isOverlap(elementA, elementB){
     const b = elementB.getBoundingClientRect()
     const horizontalH = a.left + a.width >= b.left && 
                                 b.left + b.width >= a.left
-    const verticalH = a.top + b.height >= b.top &&
+    const verticalH = a.top + a.height >= b.top &&
                                 b.top + b.height >= a.top 
 
     return horizontalH && verticalH
@@ -166,7 +166,7 @@ function flappyBird() {
     const widthH = areaGame.clientWidth
     const progressH = new progress()
     const hurdlingsH = new hurdlings(heightH, widthH, 400, 400,
-                                                 () => progress.updatePoints(++points))
+                                                 () => progressH.updatePoints(++points))
     const birdH = new bird(heightH) 
 
     areaGame.appendChild(progressH.element)
