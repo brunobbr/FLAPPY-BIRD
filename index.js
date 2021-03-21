@@ -132,6 +132,32 @@ function progress() {
 //    birdH.animateH()
 //}, 20)
 
+function isOverlap(elementA, elementB){
+    const a = elementA.getBoundingClientRect()
+    const b = elementB.getBoundingClientRect()
+    const horizontalH = a.left + a.width >= b.left && 
+                                b.left + b.width >= a.left
+    const verticalH = a.top + b.height >= b.top &&
+                                b.top + b.height >= a.top 
+
+    return horizontalH && verticalH
+}
+
+function collide(bird, hurdlings){
+    let collide = false 
+    hurdlings.pairs.forEach(pairHurdling =>{
+        if (!collide) {
+            const upp = pairHurdling.upp.element
+            const les = pairHurdling.les.element
+
+            collide = isOverlap(bird.element, upp) 
+                        ||  isOverlap(bird.element, les)
+        }
+    })
+    return collide
+}
+
+
 function flappyBird() {
     let points = 0
 
@@ -139,7 +165,7 @@ function flappyBird() {
     const heightH = areaGame.clientHeight
     const widthH = areaGame.clientWidth
     const progressH = new progress()
-    const hurdlingsH = new hurdlings(heightH, widthH, 200, 400,
+    const hurdlingsH = new hurdlings(heightH, widthH, 400, 400,
                                                  () => progress.updatePoints(++points))
     const birdH = new bird(heightH) 
 
@@ -152,6 +178,10 @@ function flappyBird() {
         const timerH = setInterval(() =>{
             hurdlingsH.animateH()
             birdH.animateH()
+
+            if (collide(birdH, hurdlingsH)){
+                clearInterval(timerH)
+            }
         }, 20)
     }
 }
